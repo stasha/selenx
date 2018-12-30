@@ -1,4 +1,4 @@
-package info.stasha.pageobject.tests;
+package info.stasha.selenx.tests;
 
 import info.stasha.selenx.annotations.Configuration;
 import info.stasha.selenx.junit4.SelenxRunner;
