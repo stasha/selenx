@@ -1,0 +1,28 @@
+<layouts>
+    
+    <layout id="siteLayout">
+        
+        <po id="footer" css="#footer">
+            <el id="cookiePolicy" css="a['/cookie/policy']" />
+            <el id="privacy" css="a['/privacy']" />
+            <el id="terms" css="a['/terms']" />
+        </po>
+    </layout>
+    
+    <layout id="notLoggedInLayout" extends="siteLayout">
+        <po id="header" css="#header">
+            <el id="logo" css="a" />
+            <el id="search" css="name['query']" />
+            <el id="home" css="ul a[href='/']" />
+            <el id="login" css="ul a[href='/login']" />
+            <el id="createAccount" css="ul a[href='/create/account']" />
+        </po>
+    </layout>
+
+    <layout id="loggedInLayout" extends="siteLayout">
+        <po id="header" css="#header">
+            <el id="profile" css="ul a[href='/my/profile']" />
+            <el id="logout" css="ul a[href='/logout']" />
+        </po>
+    </layout>
+</layouts>

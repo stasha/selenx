@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <template id="loginTemplate">
+        <type el="login email" value="test53@stasha.info" />
+        <type el="login password" value="password" />
+        <select el="login rememberme" value="false" />
+        <mouse el="login submit" />
+        <expected type="text" css="title">Admastic - Latest ads</expected>
+    </template>
+    
+    <template id="testTemplate">
+        
+    </template>
+</templates>

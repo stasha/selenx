@@ -1,0 +1,5 @@
+<site baseUri="http://localhost:8080/">
+    <import file="core/layout.xml" />
+    <import file="core/templates.xml" />
+    <import file="pages/home.xml" />
+</site>

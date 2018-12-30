@@ -1,0 +1,17 @@
+<tests>
+    <test id="loginTest">
+        <navigate url="/" return="homePage" />
+        <mouse type="click" el="header home" />
+        <expected type="text" css="title">Admastic</expected>
+        
+        <import template="loginTemplate" />
+        <wait el="header home" until="isVisible" timeout="200" />
+    </test>
+    
+    
+    <test id="logoutTest">
+        <navigate url="/" return="logedInHomePage" />
+        <mouse el="header logout" return="homePage" />
+        <expected type="text" css="title">Admastic</expected>
+    </test>
+</tests>

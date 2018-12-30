@@ -1,0 +1,26 @@
+<pages>
+    <page id="homePage" layout="notLoggedInLayout">
+        <po id="content">
+            <el id="forgotPassword" css="a[href='/forgot/password']" />
+            
+            <po id="login" css="#login">
+                <el id="email" css="[name='email']" />
+                <el id="password" css="[name='password']" />
+                <el id="rememberme" css="[name='rememberme']" />
+                <el id="submit" css="[type='submit']" />
+            </po>
+            
+            <po id="register" css="#register">
+                <el id="email" css="[name='email']" />
+                <el id="password" css="[name='password']" />
+                <el id="reTypePassword" css="[name='reTypePassword']" />
+                <el id="agreeWithTerms" css="[name='agreeWithTerms']" />
+                <el id="submit" css="[type='submit']" />
+            </po>
+        </po>
+    </page>
+    
+    <page id="logedInHomePage" layout="loggedInLayout">
+        
+    </page>
+</pages>
