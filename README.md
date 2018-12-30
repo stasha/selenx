@@ -85,7 +85,7 @@ Write selenium tests using XML
 </site>
 
 ```
-### Tests examples
+### Test examples
 ```xml
 <tests>
     <test id="loginTest">
