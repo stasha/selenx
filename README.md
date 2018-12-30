@@ -1,4 +1,4 @@
-# selenx
+# SelenX
 Write selenium tests using XML
 ## Examples
 
