@@ -12,6 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.This;
+import java.util.LinkedHashSet;
+import info.stasha.selenx.annotations.ExecuteBeforeEach;
+import info.stasha.selenx.annotations.ExecuteAfterEach;
+import info.stasha.selenx.annotations.Intercept;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  *
@@ -21,38 +27,44 @@ public class TestExecutor {
 
     private final Test test;
     private Object to;
-    private final String executeBeforeEachMethodName = "executeBeforeEach";
-    private final String executeAfterEachMethodName = "executeAfterEach";
-    private final String executeMethodName;
+    private final Set<Method> befores = new LinkedHashSet<>();
+    private final Set<Method> afters = new LinkedHashSet<>();
+    private final Map<String, Method> interceptors = new LinkedHashMap<>();
 
     public TestExecutor(Test test) {
         this.test = test;
-        executeMethodName = test.getId() + "Execute";
     }
 
     @RuntimeType
-    public void intercept(@This Object to) {
+    public void intercept(@This Object to) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         this.to = to;
         System.out.println("Executing test: " + test.getId());
 
+        for (Method m : to.getClass().getMethods()) {
+            if (m.isAnnotationPresent(ExecuteBeforeEach.class)) {
+                befores.add(m);
+            }
+            if (m.isAnnotationPresent(ExecuteAfterEach.class)) {
+                afters.add(m);
+            }
+            if (m.isAnnotationPresent(Intercept.class)) {
+                Intercept i = m.getAnnotation(Intercept.class);
+                if (m.getParameters().length == 1 && m.getParameters()[0].getType().getTypeName().equals(Action.class.getName())) {
+                    interceptors.put(i.id(), m);
+                }
+            }
+        }
+
         try {
-            executeMethod(executeBeforeEachMethodName, test.getActions());
+            for (Method m : befores) {
+                m.invoke(to, test);
+            }
             executeInternal(test.getActions(), null, to);
 
         } finally {
-            executeMethod(executeAfterEachMethodName, test.getActions());
-        }
-    }
-
-    private void executeMethod(String methodName, Set<Action> actions) {
-        Method executionMethod;
-        try {
-            executionMethod = to.getClass().getMethod(methodName, Set.class);
-            executionMethod.invoke(to, test.getActions());
-        } catch (NoSuchMethodException ex) {
-            // do nothing
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException ex) {
-            Logger.getLogger(TestExecutor.class.getName()).log(Level.SEVERE, null, ex);
+            for (Method m : afters) {
+                m.invoke(to, test);
+            }
         }
     }
 
@@ -68,14 +80,31 @@ public class TestExecutor {
                 continue;
             }
 
-            try {
+            boolean execute = true;
 
-                Method executionMethod = to.getClass().getMethod(executeMethodName, Action.class);
-                executionMethod.invoke(to, action);
-            } catch (NoSuchMethodException e) {
-                action.execute(page);
+            try {
+                Method executionMethod = interceptors.get(test.getId());
+                if (executionMethod != null) {
+                    Intercept intercept = executionMethod.getAnnotation(Intercept.class);
+
+                    if (intercept != null && intercept.id().equals(test.getId())) {
+                        for (String a : intercept.actions()) {
+                            if (a.equals(action.getId())) {
+                                execute = (boolean) executionMethod.invoke(to, action);
+                                break;
+                            }
+                        }
+                    } else {
+                        execute = (boolean) executionMethod.invoke(to, action);
+                    }
+                }
+
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 Logger.getLogger(TestExecutor.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (execute) {
+                    action.execute(page);
+                }
             }
 
             if (action.getReturns() != null) {

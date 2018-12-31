@@ -95,7 +95,7 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
 
     @Override
     public String toString() {
-        return "{" + this.getClass().getSimpleName() + ": el=" + el + ", css=" + css + ", template=" + template + ", returns=" + returns + '}';
+        return "{" + this.getClass().getSimpleName() + ": id=" + id + ", el=" + el + ", css=" + css + ", template=" + template + ", returns=" + returns + '}';
     }
 
 }

@@ -2,8 +2,11 @@ package info.stasha.selenx.tests;
 
 import info.stasha.selenx.actions.Action;
 import info.stasha.selenx.junit4.SelenxRunner;
-import java.util.Set;
 import org.junit.runner.RunWith;
+import info.stasha.selenx.ExecutingTest;
+import info.stasha.selenx.annotations.ExecuteBeforeEach;
+import info.stasha.selenx.annotations.ExecuteAfterEach;
+import info.stasha.selenx.annotations.Intercept;
 
 /**
  *
@@ -12,16 +15,20 @@ import org.junit.runner.RunWith;
 @RunWith(SelenxRunner.class)
 public class HomeTest {
 
-    public void executeBeforeEach(Set<Action> actions) {
-        System.out.println(actions);
+    @ExecuteBeforeEach
+    public void executeBeforeEach(ExecutingTest test) {
+        System.out.println(test);
     }
 
-    public void executeAfterEach(Set<Action> actions) {
-        System.out.println(actions);
+    @ExecuteAfterEach
+    public void executeAfterEach(ExecutingTest test) {
+        System.out.println(test);
     }
 
-//    public void loginTestExecute(Action action) {
-//        System.out.println("action");
-//    }
+    @Intercept(id = "loginTest", actions ={"actionId", "navigateId"})
+    public boolean loginTest(Action action) {
+        System.out.println("action");
+        return true;
+    }
 
 }

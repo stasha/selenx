@@ -79,6 +79,7 @@ public class XmlParser {
         xstr.aliasAttribute(Page.class, "layout", "layout");
 
         // action tag attributes
+        xstr.aliasAttribute(Action.class, "id", "id");
         xstr.aliasAttribute(Action.class, "css", "css");
         xstr.aliasAttribute(Action.class, "xp", "xp");
         xstr.aliasAttribute(Action.class, "el", "el");

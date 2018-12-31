@@ -1,7 +1,7 @@
 <tests>
     <test id="loginTest">
-        <navigate url="/" return="homePage" />
-        <mouse type="click" el="header home" />
+        <navigate id="navigateId" url="/" return="homePage" />
+        <mouse id="actionId" type="click" el="header home" />
         <expected type="text" css="title">Admastic</expected>
         
         <import template="loginTemplate" />
