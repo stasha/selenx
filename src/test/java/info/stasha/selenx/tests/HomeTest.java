@@ -1,8 +1,8 @@
 package info.stasha.selenx.tests;
 
-import info.stasha.selenx.annotations.Configuration;
+import info.stasha.selenx.actions.Action;
 import info.stasha.selenx.junit4.SelenxRunner;
-import org.junit.Test;
+import java.util.Set;
 import org.junit.runner.RunWith;
 
 /**
@@ -10,12 +10,18 @@ import org.junit.runner.RunWith;
  * @author stasha
  */
 @RunWith(SelenxRunner.class)
-@Configuration(xmlTest = "/home/stasha/projects/stasha/pageobjectfluentapi/src/test/java/info/stasha/pageobject/tests/HomeTest.xml")
 public class HomeTest {
-    
-    @Test
-    public void loginTest(){
-        
+
+    public void executeBeforeEach(Set<Action> actions) {
+        System.out.println(actions);
     }
+
+    public void executeAfterEach(Set<Action> actions) {
+        System.out.println(actions);
+    }
+
+//    public void loginTestExecute(Action action) {
+//        System.out.println("action");
+//    }
 
 }

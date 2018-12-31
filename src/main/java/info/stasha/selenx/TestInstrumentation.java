@@ -8,7 +8,7 @@ import java.util.Map;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.dynamic.DynamicType;
-import net.bytebuddy.implementation.MethodCall;
+import net.bytebuddy.implementation.MethodDelegation;
 
 /**
  * Instrumentation.
@@ -19,7 +19,7 @@ public class TestInstrumentation {
 
     private TestInstrumentation() {
     }
-
+    
     private static final Map<Class<?>, Class<?>> CLASSES = new HashMap<>();
 
     /**
@@ -41,17 +41,15 @@ public class TestInstrumentation {
      * @throws java.lang.NoSuchMethodException
      */
     public static Class<?> testClass(Class<?> clazz, TestClass tests) throws NoSuchMethodException {
-
         if (!CLASSES.containsKey(clazz)) {
             DynamicType.Builder<?> b = new ByteBuddy()
                     .subclass(clazz)
                     .name(clazz.getName() + "_");
 
             for (Test test : tests.getTests()) {
+                TestExecutor te = new TestExecutor(test);
                 b = b.defineMethod(test.getId(), void.class, Visibility.PUBLIC)
-                        .intercept(MethodCall.invoke(
-                                TestExecutor.class.getMethod("execute", Test.class))
-                                .with(test)
+                        .intercept(MethodDelegation.to(te)
                         )
                         .annotateMethod(new TestAnnotation());
             }

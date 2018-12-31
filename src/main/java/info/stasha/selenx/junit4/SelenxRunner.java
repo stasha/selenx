@@ -1,24 +1,16 @@
 package info.stasha.selenx.junit4;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 import info.stasha.selenx.TestInstrumentation;
 import info.stasha.selenx.XmlParser;
-import info.stasha.selenx.actions.Action;
-import info.stasha.selenx.actions.Mouse;
-import info.stasha.selenx.actions.Expected;
-import info.stasha.selenx.actions.ExpectedConverter;
-import info.stasha.selenx.actions.Navigate;
-import info.stasha.selenx.actions.Select;
-import info.stasha.selenx.actions.Type;
-import info.stasha.selenx.annotations.Configuration;
-import info.stasha.selenx.tags.Id;
-import info.stasha.selenx.tags.Import;
 import info.stasha.selenx.tags.Site;
-import info.stasha.selenx.tags.Test;
 import info.stasha.selenx.tags.TestClass;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunListener;
@@ -36,7 +28,6 @@ import org.slf4j.LoggerFactory;
 public class SelenxRunner extends BlockJUnit4ClassRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SelenxRunner.class);
-    private static final String ROOT = "/home/stasha/projects/stasha/pageobjectfluentapi/src/test/java/info/stasha/pageobject/";
 
     protected Class<?> testClass;
     protected Class<?> cls;
@@ -47,13 +38,19 @@ public class SelenxRunner extends BlockJUnit4ClassRunner {
     }
 
     private static TestClass getTests(Class<?> clazz) throws IOException {
-        Configuration config = clazz.getAnnotation(Configuration.class);
-
-        Site site = Site.init(ROOT);
+        Site site = Site.init();
 
         XStream xstr = XmlParser.getParser();
-
-        String str = FileUtils.readFileToString(new File(config.xmlTest()), "UTF-8");
+        Path dir = Paths.get(System.getProperty("user.dir"), "src");
+        
+        final Path p;
+        try (Stream<Path> paths = Files.find(
+                dir, Integer.MAX_VALUE,
+                (path, attrs) -> attrs.isRegularFile()
+                && path.endsWith(clazz.getName().replace(".", File.separator) + ".xml"))) {
+            p = paths.findAny().get();
+        }
+        String str = FileUtils.readFileToString(p.toFile(), "UTF-8");
         return (TestClass) xstr.fromXML(str);
     }
 

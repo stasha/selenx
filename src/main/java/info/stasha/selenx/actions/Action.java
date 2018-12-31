@@ -15,6 +15,8 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
     private String xp;
     private String template;
     private String returns;
+    private Page page;
+    private String id;
 
     public String getEl() {
         return el;
@@ -65,14 +67,30 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
         return this;
     }
 
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
     public String getSelector(Page page) {
         if (this.getEl() != null) {
             return page.getSelectors().get(this.getEl());
-        } else if (this.getXp() != null){
+        } else if (this.getXp() != null) {
             return page.getSelectors().get(this.getXp());
         }
 
         return this.getCss();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

@@ -4,9 +4,13 @@ import com.thoughtworks.xstream.XStream;
 import info.stasha.selenx.XmlParser;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -24,6 +28,7 @@ public class Site {
     private static UniqueSet<Template> templates = new UniqueSet<>();
     private static UniqueSet<Page> pages = new UniqueSet<>();
     private static Site site;
+    private static boolean initialized;
 
     private String baseUri;
 
@@ -39,10 +44,24 @@ public class Site {
         Site.site = site;
     }
 
-    public static Site init(String pathToSiteXml) {
+    public static Site init() throws IOException {
+        if (initialized == true) {
+            return site;
+        }
+        initialized = true;
         XStream xstr = XmlParser.getParser();
 
-        String file = pathToSiteXml + "site.xml";
+        Path dir = Paths.get(System.getProperty("user.dir"), "src");
+
+        final Path pa;
+        try (Stream<Path> paths = Files.find(
+                dir, Integer.MAX_VALUE,
+                (path, attrs) -> attrs.isRegularFile()
+                && path.endsWith("site.xml"))) {
+            pa = paths.findAny().get();
+        }
+
+        String file = pa.toString();
         Site site = null;
         try {
             String str = FileUtils.readFileToString(new File(file), "UTF-8");
@@ -52,7 +71,7 @@ public class Site {
 
             Iterator<Import> i = imports.iterator();
             while (i.hasNext()) {
-                file = pathToSiteXml + i.next().getFile();
+                file = Paths.get(pa.getParent().toString(), i.next().getFile()).toString();
                 str = FileUtils.readFileToString(new File(file), "UTF-8");
                 xstr.fromXML(str);
             }
