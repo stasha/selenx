@@ -6,9 +6,9 @@ import info.stasha.selenx.actions.Action;
 import info.stasha.selenx.actions.Mouse;
 import info.stasha.selenx.actions.Expected;
 import info.stasha.selenx.actions.ExpectedConverter;
-import info.stasha.selenx.actions.Navigate;
+import info.stasha.selenx.actions.Browser;
 import info.stasha.selenx.actions.Select;
-import info.stasha.selenx.actions.Type;
+import info.stasha.selenx.actions.Keyboard;
 import info.stasha.selenx.actions.Wait;
 import info.stasha.selenx.actions.WaitConverter;
 import info.stasha.selenx.tags.Element;
@@ -47,11 +47,11 @@ public class XmlParser {
         xstr.alias("el", Element.class);
         xstr.alias("mouse", Mouse.class);
         xstr.alias("select", Select.class);
-        xstr.alias("type", Type.class);
+        xstr.alias("keyboard", Keyboard.class);
         xstr.alias("expected", Expected.class);
         xstr.alias("tests", TestClass.class);
         xstr.alias("test", Test.class);
-        xstr.alias("navigate", Navigate.class);
+        xstr.alias("browser", Browser.class);
         xstr.alias("wait", Wait.class);
 
         // tag attributes
@@ -80,6 +80,8 @@ public class XmlParser {
 
         // action tag attributes
         xstr.aliasAttribute(Action.class, "id", "id");
+        xstr.aliasAttribute(Action.class, "action", "action");
+        xstr.aliasAttribute(Action.class, "value", "value");
         xstr.aliasAttribute(Action.class, "css", "css");
         xstr.aliasAttribute(Action.class, "xp", "xp");
         xstr.aliasAttribute(Action.class, "el", "el");
@@ -88,10 +90,6 @@ public class XmlParser {
 
         // action specific attributes
         xstr.aliasAttribute(Test.class, "actions", "action");
-        xstr.aliasAttribute(Navigate.class, "url", "url");
-        xstr.aliasAttribute(Mouse.class, "type", "type");
-        xstr.aliasAttribute(Select.class, "value", "value");
-        xstr.aliasAttribute(Type.class, "value", "value");
 
         // collections
         xstr.addImplicitCollection(Site.class, "imports", Import.class);

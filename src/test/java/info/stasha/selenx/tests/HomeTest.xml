@@ -1,7 +1,8 @@
 <tests>
     <test id="loginTest">
-        <navigate id="navigateId" url="/" return="homePage" />
-        <mouse id="actionId" type="click" el="header home" />
+        <browser action="navigate" value="/" return="homePage" />
+        <browser action="newtab" value="/" return="homePage" />
+        <mouse id="actionId" action="click" el="header home" />
         <expected type="text" css="title">Admastic</expected>
         
         <import template="loginTemplate" />
@@ -10,8 +11,8 @@
     
     
     <test id="logoutTest">
-        <navigate url="/" return="logedInHomePage" />
-        <mouse el="header logout" return="homePage" />
+        <browser action="navigate" value="/" return="logedInHomePage" />
+        <mouse action="click" el="header logout" return="homePage" />
         <expected type="text" css="title">Admastic</expected>
     </test>
 </tests>

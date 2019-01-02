@@ -9,24 +9,17 @@ import static io.github.seleniumquery.SeleniumQuery.$;
  */
 public class Mouse extends Action {
 
-    private String type = "click";
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @Override
     public void execute(Page page) {
-        switch (type.toUpperCase()) {
+        switch (getAction().toUpperCase()) {
+            case "CLICK":
+                $(getSelector(page)).click();
+                break;
             case "DOUBLECLICK":
                 $(getSelector(page)).dblclick();
                 break;
             default:
-                $(getSelector(page)).click();
+                throw new UnsupportedOperationException("Action: " + getAction() + " is not supported!");
         }
     }
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <template id="loginTemplate">
-        <type el="login email" value="test53@stasha.info" />
-        <type id="test" el="login password" value="password" />
+        <keyboard el="login email" action="type" value="test53@stasha.info" />
+        <keyboard id="test" el="login password" action="type" value="password" />
         <select el="login rememberme" value="false" />
-        <mouse el="login submit" />
+        <mouse action="click" el="login submit" />
         <expected type="text" css="title">Admastic - Latest ads</expected>
     </template>
     

@@ -10,6 +10,8 @@ import info.stasha.selenx.tags.XPathSelector;
  */
 public abstract class Action implements Executable, CSSSelector<Action>, XPathSelector<Action> {
 
+    private String action;
+    private String value;
     private String el;
     private String css;
     private String xp;
@@ -17,6 +19,22 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
     private String returns;
     private Page page;
     private String id;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 
     public String getEl() {
         return el;
