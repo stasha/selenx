@@ -8,7 +8,7 @@ import io.github.seleniumquery.SeleniumQueryFluentFunction;
  *
  * @author stasha
  */
-public class Wait extends Action {
+public class Wait extends Action<Wait> {
 
     String timeout;
     String until;
@@ -39,13 +39,6 @@ public class Wait extends Action {
         this.attr = attr;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     @Override
     public void execute(Page page) {
