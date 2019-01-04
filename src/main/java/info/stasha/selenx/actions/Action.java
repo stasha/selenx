@@ -8,7 +8,7 @@ import info.stasha.selenx.tags.XPathSelector;
  *
  * @author stasha
  */
-public abstract class Action implements Executable, CSSSelector<Action>, XPathSelector<Action> {
+public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSelector<T> {
 
     private String action;
     private String value;
@@ -24,25 +24,27 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
         return action;
     }
 
-    public void setAction(String action) {
+    public T setAction(String action) {
         this.action = action;
+        return (T) this;
     }
 
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public T setValue(String value) {
         this.value = value;
+        return (T) this;
     }
 
     public String getEl() {
         return el;
     }
 
-    public Action setEl(String el) {
+    public T setEl(String el) {
         this.el = el;
-        return this;
+        return (T) this;
     }
 
     @Override
@@ -51,9 +53,9 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
     }
 
     @Override
-    public Action setCss(String css) {
+    public T setCss(String css) {
         this.css = css;
-        return this;
+        return (T) this;
     }
 
     @Override
@@ -62,35 +64,36 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
     }
 
     @Override
-    public Action setXp(String xp) {
+    public T setXp(String xp) {
         this.xp = xp;
-        return this;
+        return (T) this;
     }
 
     public String getTemplate() {
         return template;
     }
 
-    public Action setTemplate(String template) {
+    public T setTemplate(String template) {
         this.template = template;
-        return this;
+        return (T) this;
     }
 
     public String getReturns() {
         return returns;
     }
 
-    public Action setReturns(String returns) {
+    public T setReturns(String returns) {
         this.returns = returns;
-        return this;
+        return (T) this;
     }
 
     public Page getPage() {
         return page;
     }
 
-    public void setPage(Page page) {
+    public T setPage(Page page) {
         this.page = page;
+        return (T) this;
     }
 
     public String getSelector(Page page) {
@@ -103,12 +106,26 @@ public abstract class Action implements Executable, CSSSelector<Action>, XPathSe
         return this.getCss();
     }
 
+    public String getSelector(Page page, String selector) {
+        if (selector == null) {
+            return selector;
+        }
+
+        String val = page.getSelectors().get(selector);
+        if (val != null) {
+            return val;
+        }
+
+        return selector;
+    }
+
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public T setId(String id) {
         this.id = id;
+        return (T) this;
     }
 
     @Override

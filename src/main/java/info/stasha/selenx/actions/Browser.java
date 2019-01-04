@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
  *
  * @author stasha
  */
-public class Browser extends Action {
+public class Browser extends Action<Browser> {
 
     private String getUrl() {
         String url = getValue();
@@ -45,8 +45,8 @@ public class Browser extends Action {
 
     private String switchToTab() {
         WebDriver driver = $.driver().get();
-        
-        if(getValue() == null || getValue().isEmpty()){
+
+        if (getValue() == null || getValue().isEmpty()) {
             return driver.getWindowHandle();
         }
 
