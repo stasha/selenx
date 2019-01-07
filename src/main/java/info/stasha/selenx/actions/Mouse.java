@@ -23,11 +23,12 @@ public class Mouse extends Action<Mouse> {
     public static final String SCROLL = "scroll";
 
     @Override
-    public void execute(Page page) {
+    public void execute() {
+        Page page = getPage();
         Actions action = new Actions($.driver().get());
-        WebElement element = $(getSelector(page)).get(0);
+        WebElement element = $(getSelector()).get(0);
 
-        switch (getAction().toUpperCase()) {
+        switch (getAction()) {
             case HOVER:
                 action.moveToElement(element).build().perform();
                 break;
@@ -39,16 +40,16 @@ public class Mouse extends Action<Mouse> {
                 mouse.mouseUp((Coordinates) element.getLocation());
                 break;
             case CLICK:
-                $(getSelector(page)).click();
+                $(getSelector()).click();
                 break;
             case DOUBLECLICK:
-                $(getSelector(page)).dblclick();
+                $(getSelector()).dblclick();
                 break;
             case CONTEXTCLICK:
                 action.contextClick(element);
                 break;
             case DRAGNDROP:
-                String dest = getSelector(page, getValue());
+                String dest = getSelector(getValue());
                 String[] point = null;
 
                 if (dest.equals(getValue())) {
@@ -65,7 +66,7 @@ public class Mouse extends Action<Mouse> {
                     }
                 }
 
-                WebElement destination = $(getSelector(page, getValue())).get(0);
+                WebElement destination = $(getSelector(getValue())).get(0);
                 action.dragAndDrop(element, destination).build().perform();
 
                 break;

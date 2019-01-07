@@ -103,7 +103,7 @@ public class TestExecutor {
                 Logger.getLogger(TestExecutor.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 if (execute) {
-                    action.execute(page);
+                    action.execute();
                 }
             }
 

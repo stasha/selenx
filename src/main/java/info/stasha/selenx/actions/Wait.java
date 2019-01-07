@@ -39,11 +39,11 @@ public class Wait extends Action<Wait> {
         this.attr = attr;
     }
 
-
     @Override
-    public void execute(Page page) {
+    public void execute() {
+        Page page = getPage();
         Long to = timeout == null || timeout.isEmpty() ? 1000 * 60 : Long.parseLong(timeout);
-        SeleniumQueryFluentFunction func = $(getSelector(page)).waitUntil(to);
+        SeleniumQueryFluentFunction func = $(getSelector()).waitUntil(to);
         switch (until.toUpperCase()) {
             case "ISEMPTY":
                 func.isEmpty();

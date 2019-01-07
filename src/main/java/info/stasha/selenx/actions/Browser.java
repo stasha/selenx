@@ -73,7 +73,8 @@ public class Browser extends Action<Browser> {
     }
 
     @Override
-    public void execute(Page page) {
+    public void execute() {
+        Page page = getPage();
         String[] pair;
         switch (getAction().toUpperCase()) {
             case "NAVIGATE":

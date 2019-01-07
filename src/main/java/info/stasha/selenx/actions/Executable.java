@@ -8,5 +8,5 @@ import info.stasha.selenx.tags.Page;
  */
 public interface Executable {
 
-    void execute(Page page);
+    void execute();
 }

@@ -7,7 +7,7 @@
                 <el id="email" css="[name='email']" />
                 <el id="password" css="[name='password']" />
                 <el id="rememberme" css="[name='rememberme']" />
-                <el id="submit" css="[type='submit']" />
+                <el id="submit" css="[type='submit']" return="loggedInHomePage" />
             </po>
             
             <po id="register" css="#register">
@@ -20,7 +20,7 @@
         </po>
     </page>
     
-    <page id="logedInHomePage" layout="loggedInLayout">
+    <page id="loggedInHomePage" layout="loggedInLayout">
         
     </page>
 </pages>

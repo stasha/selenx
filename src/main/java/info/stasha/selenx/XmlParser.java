@@ -66,6 +66,7 @@ public class XmlParser {
         // element tag attributes
         xstr.aliasAttribute(Element.class, "css", "css");
         xstr.aliasAttribute(Element.class, "xp", "xp");
+        xstr.aliasAttribute(Element.class, "returns", "return");
 
         // layout tag attributes
         xstr.aliasAttribute(Layout.class, "defaultLayout", "default");

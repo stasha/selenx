@@ -30,12 +30,12 @@ public class Keyboard extends Action<Keyboard> {
     }
 
     @Override
-    public void execute(Page page) {
-
+    public void execute() {
+        Page page = getPage();
         Actions action = new Actions($.driver().get());
-        WebElement element = $(getSelector(page)).get(0);
+        WebElement element = $(getSelector()).get(0);
 
-        switch (getAction().toUpperCase()) {
+        switch (getAction()) {
             case KEYDOWN:
                 if (element == null) {
                     action.keyDown(getKeys()).build().perform();

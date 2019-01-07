@@ -11,7 +11,7 @@
     
     
     <test id="logoutTest">
-        <browser action="navigate" value="/" return="logedInHomePage" />
+        <browser action="navigate" value="/" return="loggedInHomePage" />
         <mouse action="click" el="header logout" return="homePage" />
         <expected type="text" css="title">Admastic</expected>
     </test>

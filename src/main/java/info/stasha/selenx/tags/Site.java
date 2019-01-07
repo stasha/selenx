@@ -131,7 +131,9 @@ public class Site {
                 id = id.trim().replaceAll("\\s+", " ");
                 selector = selector.trim().replaceAll("\\s+", " ");
 
-                page.getSelectors().put(id, selector);
+                po.setSelector(selector);
+
+                page.getElementsMap().put(id, po);
                 System.out.println(page.getId() + " : " + id + " : " + selector);
             }
         }

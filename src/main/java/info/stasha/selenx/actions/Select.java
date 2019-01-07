@@ -10,23 +10,24 @@ import static io.github.seleniumquery.SeleniumQuery.$;
 public class Select extends Action {
 
     @Override
-    public void execute(Page page) {
+    public void execute() {
+        Page page = getPage();
         String value = getValue() == null ? "true" : "false";
-        String tagName = $(getSelector(page)).get(0).getTagName().toUpperCase();
-        String type = $(getSelector(page)).attr("type").toUpperCase();
+        String tagName = $(getSelector()).get(0).getTagName().toUpperCase();
+        String type = $(getSelector()).attr("type").toUpperCase();
         switch (value.toLowerCase()) {
             case "true":
                 if (type.equals("CHECKBOX")) {
-                    if (!$(getSelector(page)).is(":checked")) {
-                        $(getSelector(page)).click();
+                    if (!$(getSelector()).is(":checked")) {
+                        $(getSelector()).click();
                     }
                 }
                 break;
             case "false":
 
                 if (type.equals("CHECKBOX")) {
-                    if ($(getSelector(page)).is(":checked")) {
-                        $(getSelector(page)).click();
+                    if ($(getSelector()).is(":checked")) {
+                        $(getSelector()).click();
                     }
                 }
             default:

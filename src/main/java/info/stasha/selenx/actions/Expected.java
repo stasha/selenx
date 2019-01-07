@@ -21,10 +21,11 @@ public class Expected extends Action {
     }
 
     @Override
-    public void execute(Page page) {
+    public void execute() {
+        Page page = getPage();
         switch (type.toLowerCase()) {
             case "text":
-                $(getSelector(page)).assertThat().html().isEqualTo(getValue());
+                $(getSelector()).assertThat().html().isEqualTo(getValue());
                 break;
         }
     }

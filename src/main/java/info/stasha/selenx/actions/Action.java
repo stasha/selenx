@@ -1,6 +1,7 @@
 package info.stasha.selenx.actions;
 
 import info.stasha.selenx.tags.CSSSelector;
+import info.stasha.selenx.tags.Element;
 import info.stasha.selenx.tags.Page;
 import info.stasha.selenx.tags.XPathSelector;
 
@@ -79,7 +80,14 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
     }
 
     public String getReturns() {
-        return returns;
+        if (this.returns != null) {
+            return this.returns;
+        }
+        Element el = getElement();
+        if (el != null) {
+            return getElement().getReturns();
+        }
+        return null;
     }
 
     public T setReturns(String returns) {
@@ -96,22 +104,30 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
         return (T) this;
     }
 
-    public String getSelector(Page page) {
+    public Element getElement() {
         if (this.getEl() != null) {
-            return page.getSelectors().get(this.getEl());
+            return page.getElementsMap().get(this.getEl());
         } else if (this.getXp() != null) {
-            return page.getSelectors().get(this.getXp());
+            return page.getElementsMap().get(this.getXp());
         }
 
-        return this.getCss();
+        return null;
     }
 
-    public String getSelector(Page page, String selector) {
+    public String getSelector() {
+        Element e = getElement();
+        if (e == null) {
+            return this.getCss();
+        }
+        return e.getSelector();
+    }
+
+    public String getSelector(String selector) {
         if (selector == null) {
             return selector;
         }
 
-        String val = page.getSelectors().get(selector);
+        String val = page.getElementsMap().get(selector).getSelector();
         if (val != null) {
             return val;
         }
