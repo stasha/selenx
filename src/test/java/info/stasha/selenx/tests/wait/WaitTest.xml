@@ -1,0 +1,6 @@
+<tests>
+    <test id="waitTest">
+        <browser action="navigate" value="http://stasha.info/index.php?id=132" />
+        
+    </test>
+</tests>

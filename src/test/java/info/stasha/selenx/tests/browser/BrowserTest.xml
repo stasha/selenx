@@ -1,0 +1,55 @@
+<tests>
+    <test id="browserTest">
+        <browser action="navigate" value="http://stasha.info" />
+        <expected css="title">Projects / Experiments</expected>
+        <browser action="newtab" value="http://stasha.info/?id=5" />
+        <expected css="title">Blog</expected>
+        <browser action="newtab" value="http://stasha.info/?id=20" />
+        <expected css="title">About</expected>
+        <browser action="newtab" value="http://stasha.info/?id=68" />
+        <expected css="title">Contact</expected>
+        
+        <browser action="switchtotab" value="Projects / Experiments" />
+        <expected css="title">Projects / Experiments</expected>
+        <browser action="switchtotab" value="Blog" />
+        <expected css="title">Blog</expected>
+        <browser action="switchtotab" value="About" />
+        <expected css="title">About</expected>
+        <browser action="switchtotab" value="Contact" />
+        <expected css="title">Contact</expected>
+        
+        <browser action="switchtotab" value="0" />
+        <expected css="title">Projects / Experiments</expected>
+        <browser action="switchtotab" value="1" />
+        <expected css="title">Blog</expected>
+        <browser action="switchtotab" value="2" />
+        <expected css="title">About</expected>
+        <browser action="switchtotab" value="3" />
+        <expected css="title">Contact</expected>
+        
+        <browser action="closetab" value="3" />
+        <expected css="title">About</expected>
+        <browser action="closetab" value="2" />
+        <expected css="title">Blog</expected>
+        <browser action="closetab" value="1" />
+        <expected css="title">Projects / Experiments</expected>
+        
+        <browser action="navigate" value="http://stasha.info/?id=5" />
+        <expected css="title">Blog</expected>
+        <browser action="back" />
+        <expected css="title">Projects / Experiments</expected>
+        <browser action="forward" />
+        <expected css="title">Blog</expected>
+        <browser action="refresh" />
+        <expected css="title">Blog</expected>
+        <browser action="maximize" />
+        <wait timeout="2000" />
+        <!-- resize doesn't work as expected, 
+            it just resets browser window to size when test started  -->
+        <browser action="resize" value="1280,200" />
+        <wait timeout="2000" />
+        <browser action="move" value="10,20" />
+        <wait timeout="2000" />
+        
+    </test>
+</tests>

@@ -50,6 +50,9 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
 
     @Override
     public String getCss() {
+        if(css == null){
+            return "body";
+        }
         return css;
     }
 
@@ -119,6 +122,7 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
         if (e == null) {
             return this.getCss();
         }
+        
         return e.getSelector();
     }
 

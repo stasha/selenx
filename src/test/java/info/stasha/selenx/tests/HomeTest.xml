@@ -1,7 +1,7 @@
 <tests>
     <test id="loginTest">
         <browser action="navigate" value="/" return="homePage" />
-        <browser action="newtab" value="/" return="homePage" />
+        
         <mouse id="actionId" action="click" el="header home" />
         <expected type="text" css="title">Admastic</expected>
         

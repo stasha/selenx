@@ -1,0 +1,16 @@
+<tests>
+    <test id="KeyboardTest">
+        <browser action="navigate" value="http://stasha.info/index.php?id=132" />
+        
+        <keyboard css="#textArea" action="type" press="shift" value="a" />
+        <expected css="#textArea" attr="value">A</expected>
+        <keyboard action="type" css="#textArea" value="b" />
+        <expected css="#textArea" attr="value">B</expected>
+        
+        <keyboard release="shift" />
+        
+        <keyboard action="type" css="#textArea" value="c" />
+        <expected css="#textArea" attr="value">c</expected>
+        <wait timeout="2000" />
+    </test>
+</tests>

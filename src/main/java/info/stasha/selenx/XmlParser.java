@@ -89,8 +89,13 @@ public class XmlParser {
         xstr.aliasAttribute(Action.class, "template", "template");
         xstr.aliasAttribute(Action.class, "returns", "return");
 
+        // expected tag attributes
+        xstr.aliasAttribute(Expected.class, "type", "type");
+        xstr.aliasAttribute(Expected.class, "attr", "attr");
+
         // action specific attributes
         xstr.aliasAttribute(Test.class, "actions", "action");
+        xstr.aliasAttribute(Keyboard.class, "press", "release");
 
         // collections
         xstr.addImplicitCollection(Site.class, "imports", Import.class);

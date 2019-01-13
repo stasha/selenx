@@ -36,7 +36,7 @@ public class TestExecutor {
     }
 
     @RuntimeType
-    public void intercept(@This Object to) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void intercept(@This Object to) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, Exception {
         this.to = to;
         System.out.println("Executing test: " + test.getId());
 
@@ -68,7 +68,7 @@ public class TestExecutor {
         }
     }
 
-    private void executeInternal(Set<Action> actions, Page page, final Object to) {
+    private void executeInternal(Set<Action> actions, Page page, final Object to) throws Exception {
 
         for (Action action : actions) {
             action.setPage(page);

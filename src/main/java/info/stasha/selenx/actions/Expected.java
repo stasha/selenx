@@ -10,6 +10,15 @@ import static io.github.seleniumquery.SeleniumQuery.$;
 public class Expected extends Action {
 
     private String type = "text";
+    private String attr = "html";
+
+    public String getAttr() {
+        return attr;
+    }
+
+    public void setAttr(String attr) {
+        this.attr = attr;
+    }
 
     public String getType() {
         return type;
@@ -25,7 +34,14 @@ public class Expected extends Action {
         Page page = getPage();
         switch (type.toLowerCase()) {
             case "text":
-                $(getSelector()).assertThat().html().isEqualTo(getValue());
+                switch (attr.toUpperCase()) {
+                    case "HTML":
+                        $(getSelector()).assertThat().html().isEqualTo(getValue());
+                        break;
+                    case "VALUE":
+                        $(getSelector()).assertThat().val().isEqualTo(getValue());
+
+                }
                 break;
         }
     }

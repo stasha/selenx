@@ -3,6 +3,7 @@ package info.stasha.selenx.actions;
 import info.stasha.selenx.tags.Page;
 import info.stasha.selenx.tags.Site;
 import static io.github.seleniumquery.SeleniumQuery.$;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import org.openqa.selenium.Dimension;
@@ -50,12 +51,20 @@ public class Browser extends Action<Browser> {
             return driver.getWindowHandle();
         }
 
-        for (String tab : driver.getWindowHandles()) {
+        try {
+            int value = Integer.parseInt(getValue());
+            String tab = new ArrayList<>(driver.getWindowHandles()).get(value);
             driver.switchTo().window(tab);
-            if (getValue().equalsIgnoreCase(driver.getTitle())) {
-                return tab;
+            return tab;
+        } catch (NumberFormatException ex) {
+            for (String tab : driver.getWindowHandles()) {
+                driver.switchTo().window(tab);
+                if (getValue().equalsIgnoreCase(driver.getTitle())) {
+                    return tab;
+                }
             }
         }
+
         return null;
     }
 

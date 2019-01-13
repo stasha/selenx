@@ -40,10 +40,17 @@ public class Wait extends Action<Wait> {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws InterruptedException {
         Page page = getPage();
-        Long to = timeout == null || timeout.isEmpty() ? 1000 * 60 : Long.parseLong(timeout);
+        Long to = timeout == null || timeout.isEmpty() ? -1 : Long.parseLong(timeout);
+        String selector = getSelector();
+        if (selector == null && to > -1) {
+                Thread.sleep(to);
+                return;
+        }
+        
         SeleniumQueryFluentFunction func = $(getSelector()).waitUntil(to);
+
         switch (until.toUpperCase()) {
             case "ISEMPTY":
                 func.isEmpty();
