@@ -26,7 +26,7 @@ public class Mouse extends Action<Mouse> {
     public void execute() {
         Page page = getPage();
         Actions action = new Actions($.driver().get());
-        WebElement element = $(getSelector()).get(0);
+        WebElement element = $(getWebElement()).get(0);
 
         switch (getAction()) {
             case HOVER:
@@ -40,10 +40,10 @@ public class Mouse extends Action<Mouse> {
                 mouse.mouseUp((Coordinates) element.getLocation());
                 break;
             case CLICK:
-                $(getSelector()).click();
+                $(getWebElement()).click();
                 break;
             case DOUBLECLICK:
-                $(getSelector()).dblclick();
+                $(getWebElement()).dblclick();
                 break;
             case CONTEXTCLICK:
                 action.contextClick(element);

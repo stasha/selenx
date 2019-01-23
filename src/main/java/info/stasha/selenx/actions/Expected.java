@@ -36,10 +36,10 @@ public class Expected extends Action {
             case "text":
                 switch (attr.toUpperCase()) {
                     case "HTML":
-                        $(getSelector()).assertThat().html().isEqualTo(getValue());
+                        $(getWebElement()).assertThat().html().isEqualTo(getValue());
                         break;
                     case "VALUE":
-                        $(getSelector()).assertThat().val().isEqualTo(getValue());
+                        $(getWebElement()).assertThat().val().isEqualTo(getValue());
 
                 }
                 break;

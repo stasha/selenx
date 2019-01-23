@@ -3,6 +3,7 @@ package info.stasha.selenx.actions;
 import info.stasha.selenx.tags.Page;
 import static io.github.seleniumquery.SeleniumQuery.$;
 import io.github.seleniumquery.SeleniumQueryFluentFunction;
+import org.openqa.selenium.WebElement;
 
 /**
  *
@@ -43,13 +44,13 @@ public class Wait extends Action<Wait> {
     public void execute() throws InterruptedException {
         Page page = getPage();
         Long to = timeout == null || timeout.isEmpty() ? -1 : Long.parseLong(timeout);
-        String selector = getSelector();
+        WebElement selector = getWebElement();
         if (selector == null && to > -1) {
                 Thread.sleep(to);
                 return;
         }
         
-        SeleniumQueryFluentFunction func = $(getSelector()).waitUntil(to);
+        SeleniumQueryFluentFunction func = $(getWebElement()).waitUntil(to);
 
         switch (until.toUpperCase()) {
             case "ISEMPTY":

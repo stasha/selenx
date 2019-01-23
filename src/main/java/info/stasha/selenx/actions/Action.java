@@ -4,6 +4,8 @@ import info.stasha.selenx.tags.CSSSelector;
 import info.stasha.selenx.tags.Element;
 import info.stasha.selenx.tags.Page;
 import info.stasha.selenx.tags.XPathSelector;
+import static io.github.seleniumquery.SeleniumQuery.$;
+import org.openqa.selenium.WebElement;
 
 /**
  *
@@ -50,9 +52,6 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
 
     @Override
     public String getCss() {
-        if(css == null){
-            return "body";
-        }
         return css;
     }
 
@@ -117,13 +116,22 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
         return null;
     }
 
-    public String getSelector() {
-        Element e = getElement();
-        if (e == null) {
-            return this.getCss();
+    public WebElement getWebElement() {
+        if (this.getCss() != null) {
+           return $(getCss()).get(0);
         }
-        
-        return e.getSelector();
+
+        Element e = getElement();
+        if (e != null) {
+            return $(e.getSelector()).get(0);
+        }
+
+        WebElement el = $.driver().get().switchTo().activeElement();
+        if (el != null) {
+            return el;
+        }
+
+        return $("body").get(0);
     }
 
     public String getSelector(String selector) {

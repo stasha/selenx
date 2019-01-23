@@ -1,6 +1,5 @@
 package info.stasha.selenx.actions;
 
-import info.stasha.selenx.tags.Page;
 import static io.github.seleniumquery.SeleniumQuery.$;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -14,76 +13,72 @@ public class Keyboard extends Action<Keyboard> {
 
     private static Actions action;
 
+    /**
+     * Presses and then releases functional keys like up, down, f1, tab...
+     */
     public static final String PRESS = "press";
+    /**
+     * Press and hold keys: shift, ctrl, alt
+     */
+    public static final String HOLD = "hold";
+    /**
+     * Release hold keys: shift, ctrl, alt
+     */
     public static final String RELEASE = "release";
+    /**
+     * Type normal text
+     */
     public static final String TYPE = "type";
-    public static final String APPEND = "append";
-    public static final String PREPEND = "prepend";
 
-    private String press;
-    private String release;
+    public void holdOrRelease(String a) throws InterruptedException {
 
-    private void pressOrRelease(WebElement element, String actionType) {
-        String[] keys = press.split(" ");
-        for (String key : keys) {
-            if (!key.trim().isEmpty()) {
-                Keys k = null;
-                switch (key.toUpperCase()) {
-                    case "SHIFT":
-                        k = Keys.SHIFT;
-                        break;
-                    case "CTRL":
-                        k = Keys.CONTROL;
-                        break;
-                    case "ALT":
-                        k = Keys.ALT;
-                        break;
-                    default:
-                        throw new UnsupportedOperationException("Action: " + getAction() + " is not supported!");
-                }
-                if (k != null) {
-                    if ("press".equals(actionType)) {
-                        action = action.keyDown(element, k);
-                    } else if ("release".equals(actionType)) {
-                        action = action.keyUp(element, k);
-                    }
-                }
+        WebElement el = $(getWebElement()).get(0);
+        Keys key = null;
+        String values[] = getValue().split(",");
+
+        for (String val : values) {
+            switch (a) {
+                case "hold":
+                    action = action.keyDown(el, getKey(val));
+                    break;
+                case "press":
+                    action = action.sendKeys(el, getKey(val));
+                    Thread.sleep(500);
+                    break;
+                default:
+                    action = action.keyUp(el, getKey(val));
             }
         }
     }
 
+    public Keys getKey(String key) {
+        return Keys.valueOf(key.trim().toUpperCase());
+    }
+
     @Override
-    public void execute() {
+    public void execute() throws InterruptedException {
         if (action == null) {
             action = new Actions($.driver().get());
         }
 
-        WebElement element = null;
-        String selector = getSelector();
-        if (selector != null) {
-            element = $(getSelector()).get(0);
-            $(element).val("");
-        }
-
-        if (press != null) {
-            pressOrRelease(element, "press");
-        }
         switch (getAction()) {
+            case PRESS:
+                holdOrRelease("press");
+                break;
             case TYPE:
-                action = action.sendKeys(getValue());
+                WebElement element = getWebElement();
+                $(element).val("");
+                action = action.sendKeys(element, getValue());
                 break;
-            case APPEND:
-
+            case HOLD:
+                holdOrRelease("hold");
                 break;
-            case PREPEND:
-
+            case RELEASE:
+                holdOrRelease("release");
                 break;
 
             default:
                 throw new UnsupportedOperationException("Action: " + getAction() + " is not supported!");
-        }
-        if (release != null) {
-            pressOrRelease(element, "release");
         }
 
         action.build().perform();

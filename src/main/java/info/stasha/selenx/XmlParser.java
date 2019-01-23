@@ -95,7 +95,6 @@ public class XmlParser {
 
         // action specific attributes
         xstr.aliasAttribute(Test.class, "actions", "action");
-        xstr.aliasAttribute(Keyboard.class, "press", "release");
 
         // collections
         xstr.addImplicitCollection(Site.class, "imports", Import.class);
