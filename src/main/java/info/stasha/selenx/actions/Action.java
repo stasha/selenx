@@ -24,6 +24,9 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
     private String id;
 
     public String getAction() {
+        if (action != null) {
+            return action.trim().toLowerCase();
+        }
         return action;
     }
 
@@ -118,7 +121,7 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
 
     public WebElement getWebElement() {
         if (this.getCss() != null) {
-           return $(getCss()).get(0);
+            return $(getCss()).get(0);
         }
 
         Element e = getElement();

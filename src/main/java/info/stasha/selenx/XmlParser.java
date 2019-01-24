@@ -90,8 +90,8 @@ public class XmlParser {
         xstr.aliasAttribute(Action.class, "returns", "return");
 
         // expected tag attributes
-        xstr.aliasAttribute(Expected.class, "type", "type");
         xstr.aliasAttribute(Expected.class, "attr", "attr");
+        xstr.aliasAttribute(Expected.class, "prop", "prop");
 
         // action specific attributes
         xstr.aliasAttribute(Test.class, "actions", "action");

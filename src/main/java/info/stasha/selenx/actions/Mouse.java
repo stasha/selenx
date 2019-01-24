@@ -1,6 +1,5 @@
 package info.stasha.selenx.actions;
 
-import info.stasha.selenx.tags.Page;
 import static io.github.seleniumquery.SeleniumQuery.$;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -20,13 +19,11 @@ public class Mouse extends Action<Mouse> {
     public static final String DOUBLECLICK = "doubleclick";
     public static final String CONTEXTCLICK = "contextclick";
     public static final String DRAGNDROP = "dragndrop";
-    public static final String SCROLL = "scroll";
 
     @Override
     public void execute() {
-        Page page = getPage();
         Actions action = new Actions($.driver().get());
-        WebElement element = $(getWebElement()).get(0);
+        WebElement element = getWebElement();
 
         switch (getAction()) {
             case HOVER:
@@ -68,9 +65,6 @@ public class Mouse extends Action<Mouse> {
 
                 WebElement destination = $(getSelector(getValue())).get(0);
                 action.dragAndDrop(element, destination).build().perform();
-
-                break;
-            case SCROLL:
 
                 break;
             default:

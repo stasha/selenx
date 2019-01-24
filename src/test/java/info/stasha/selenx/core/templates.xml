@@ -5,7 +5,7 @@
         <keyboard id="test" el="login password" action="type" value="password" />
         <select el="login rememberme" value="false" />
         <mouse action="click" el="login submit" />
-        <expected type="text" css="title">Admastic - Latest ads</expected>
+        <expected css="title">Admastic - Latest ads</expected>
     </template>
     
     <template id="testTemplate">

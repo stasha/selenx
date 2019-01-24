@@ -2,5 +2,11 @@
     <test id="MouseTest">
         <browser action="navigate" value="http://stasha.info/index.php?id=132" />
         
+        <mouse css="#ui-id-3" action="click" />
+        <expected attr="aria-selected">true</expected>
+        
+        <mouse css="[for='radio1']" action="click" />
+        <expected prop="value">Choice 1</expected>
+        <expected action="selected" />
     </test>
 </tests>

@@ -24,16 +24,20 @@ public class ExpectedConverter implements Converter {
         e.setXp(reader.getAttribute("xp"));
         e.setEl(reader.getAttribute("el"));
         e.setReturns(reader.getAttribute("return"));
-        String type = reader.getAttribute("type");
-        e.setType(type == null ? "text" : type);
-        String attr = reader.getAttribute("attr");
-        e.setAttr(attr == null ? "html" : attr);
+        String prop = reader.getAttribute("prop");
+        e.setAttr(reader.getAttribute("attr"));
+        e.setProp(reader.getAttribute("prop"));
         e.setTemplate(reader.getAttribute("template"));
+        e.setAction(reader.getAttribute("action"));
 
         // getValue must be last otherwise strange exception will be thrown
-        String value = reader.getAttribute("value");
-        value = value == null ? reader.getValue().trim() : value;
-        e.setValue(value);
+        String attrValue = reader.getAttribute("value");
+        String value = reader.getValue();
+        if (value != null) {
+            value = value.trim();
+        }
+        attrValue = attrValue == null ? value : attrValue;
+        e.setValue(attrValue);
         return e;
     }
 

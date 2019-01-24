@@ -70,26 +70,26 @@
         <keyboard css="#textArea" action="hold" value="shift" />
         <keyboard action="type" value="a" />
         <keyboard action="release" value="shift" />
-        <expected attr="value">A</expected>
+        <expected prop="value">A</expected>
         
         <keyboard action="press" value="tab" />
         <keyboard action="press" value="tab" />
         <keyboard action="type" value="a" />
         <keyboard action="press" value="escape" />
-        <expected attr="value">a</expected>
+        <expected prop="value">a</expected>
         <keyboard action="press" value="down" />
         <keyboard action="press" value="down" />
         <keyboard action="press" value="down" />
         <keyboard action="press" value="up" />
         <keyboard action="press" value="enter" />
-        <expected attr="value">ActionScript</expected>
+        <expected prop="value">ActionScript</expected>
         <keyboard action="press" value="back_space" />
-        <expected attr="value">ActionScrip</expected>
+        <expected prop="value">ActionScrip</expected>
         
         <keyboard action="hold" value="control" />
         <keyboard action="type" value="a" />
         <keyboard action="release" value="control" />
         <keyboard action="press" value="back_space" />
-        <expected attr="value"></expected>
+        <expected prop="value"></expected>
     </test>
 </tests>
