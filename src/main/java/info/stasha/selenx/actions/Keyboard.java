@@ -43,7 +43,6 @@ public class Keyboard extends Action<Keyboard> {
                     break;
                 case "press":
                     action = action.sendKeys(el, getKey(val));
-                    Thread.sleep(500);
                     break;
                 default:
                     action = action.keyUp(el, getKey(val));
@@ -59,6 +58,10 @@ public class Keyboard extends Action<Keyboard> {
     public void execute() throws InterruptedException {
         if (action == null) {
             action = new Actions($.driver().get());
+        }
+        
+        if(getSelector() == null || "body".equals(getSelector())){
+            $("body").click();
         }
 
         switch (getAction()) {
@@ -82,6 +85,7 @@ public class Keyboard extends Action<Keyboard> {
         }
 
         action.build().perform();
+//        Thread.sleep(500);
 
     }
 

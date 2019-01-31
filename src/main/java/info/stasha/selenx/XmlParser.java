@@ -7,7 +7,6 @@ import info.stasha.selenx.actions.Mouse;
 import info.stasha.selenx.actions.Expected;
 import info.stasha.selenx.actions.ExpectedConverter;
 import info.stasha.selenx.actions.Browser;
-import info.stasha.selenx.actions.Select;
 import info.stasha.selenx.actions.Keyboard;
 import info.stasha.selenx.actions.Wait;
 import info.stasha.selenx.actions.WaitConverter;
@@ -46,7 +45,6 @@ public class XmlParser {
         xstr.alias("po", PageObject.class);
         xstr.alias("el", Element.class);
         xstr.alias("mouse", Mouse.class);
-        xstr.alias("select", Select.class);
         xstr.alias("keyboard", Keyboard.class);
         xstr.alias("expected", Expected.class);
         xstr.alias("tests", TestClass.class);

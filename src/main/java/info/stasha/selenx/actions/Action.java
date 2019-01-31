@@ -137,6 +137,16 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
         return $("body").get(0);
     }
 
+    public String getSelector() {
+        if (this.getCss() != null) {
+            return this.getCss();
+        } else if (this.getXp() != null) {
+            return this.getXp();
+        }
+
+        return null;
+    }
+
     public String getSelector(String selector) {
         if (selector == null) {
             return selector;

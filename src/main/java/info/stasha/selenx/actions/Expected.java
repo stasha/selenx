@@ -55,8 +55,8 @@ public class Expected extends Action {
 
         return $(getWebElement()).html();
     }
-    
-    private String getElementToHtml(){
+
+    private String getElementToHtml() {
         return getWebElement().getAttribute("outerHTML");
     }
 
@@ -171,6 +171,12 @@ public class Expected extends Action {
             case "!HAS_ELEMENT":
                 if ($(getWebElement()).filter(getValue()).size() > 0) {
                     throw new AssertionError("Element contains " + getValue() + " element: " + getElementToHtml());
+                }
+                break;
+            case "COUNT":
+                int size = $(getSelector()).size();
+                if (size != Integer.parseInt(getValue().trim())) {
+                    throw new AssertionError("Element count does not equal. Expected " + getValue() + " but was " + size + ": " + getElementToHtml());
                 }
                 break;
             default:

@@ -8,5 +8,38 @@
         <mouse css="[for='radio1']" action="click" />
         <expected prop="value">Choice 1</expected>
         <expected action="selected" />
+        
+        <mouse css="#slider span" action="press" />
+        <mouse action="move" value="100, 0"/>
+        <mouse action="release" />
+        <expected css="#amount" prop="value">118 - 300</expected>
+        
+        <mouse css="body" action="click" />
+        <keyboard css="body" action="press" value="page_down" />
+        <wait timeout="1000" />
+
+        <mouse css="#ui-id-21" action="hover" />
+        <wait css="[role='menu']" />
+        <expected css="[role='menu']" action="visible" />
+        
+        <mouse css="#doubleclick" action="doubleclick" />
+        <expected css="#clickout" value="double click" />
+        
+        <mouse css="#contextclick" action="contextclick" />
+        <expected css="#clickout" value="context click" />
+        
+        <mouse css="#sortable-item-1-a" action="dragndrop" value="200, 0" />
+        <expected css="#sortable1 li" action="count" value="4" />
+        <expected css="#sortable2 li" action="count" value="6" />
+        
+        <mouse css="#sortable-item-1-b" action="dragndrop" value="-200, 0" />
+        <expected css="#sortable1 li" action="count" value="5" />
+        <expected css="#sortable2 li" action="count" value="5" />
+        
+        <mouse css="#sortable-item-1-a" action="dragndrop" value="#sortable1" />
+        <expected css="#sortable1 li" action="count" value="6" />
+        <expected css="#sortable2 li" action="count" value="4" />
+        
+        
     </test>
 </tests>

@@ -25,6 +25,7 @@ public class WaitConverter implements Converter {
         e.setEl(reader.getAttribute("el"));
         e.setReturns(reader.getAttribute("return"));
         e.setTemplate(reader.getAttribute("template"));
+        e.setAction(reader.getAttribute("action"));
         
         e.setAttr(reader.getAttribute("attr"));
         e.setTimeout(reader.getAttribute("timeout"));

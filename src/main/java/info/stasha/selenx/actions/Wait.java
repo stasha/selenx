@@ -1,6 +1,5 @@
 package info.stasha.selenx.actions;
 
-import info.stasha.selenx.tags.Page;
 import static io.github.seleniumquery.SeleniumQuery.$;
 import io.github.seleniumquery.SeleniumQueryFluentFunction;
 import org.openqa.selenium.WebElement;
@@ -42,27 +41,28 @@ public class Wait extends Action<Wait> {
 
     @Override
     public void execute() throws InterruptedException {
-        Page page = getPage();
-        Long to = timeout == null || timeout.isEmpty() ? -1 : Long.parseLong(timeout);
-        WebElement selector = getWebElement();
-        if (selector == null && to > -1) {
+        Long to = timeout == null || timeout.isEmpty() ? 1500 : Long.parseLong(timeout.trim());
+        if (getSelector() == null && to > -1) {
                 Thread.sleep(to);
                 return;
         }
         
-        SeleniumQueryFluentFunction func = $(getWebElement()).waitUntil(to);
+        SeleniumQueryFluentFunction func = $(getSelector()).waitUntil(to);
+        
+        String action = getAction();
+        action = action == null ? "" : action;
 
-        switch (until.toUpperCase()) {
+        switch (action.toUpperCase()) {
             case "ISEMPTY":
                 func.isEmpty();
                 break;
             case "ISHIDDEN":
                 func.isHidden();
                 break;
-            case "ISPRESENT":
+            case "PRESENT":
                 func.isPresent();
                 break;
-            case "ISVISIBLE":
+            case "VISIBLE":
                 func.isVisible();
                 break;
             case "ISNOTEMPTY":

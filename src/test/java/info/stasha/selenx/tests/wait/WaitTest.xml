@@ -2,5 +2,15 @@
     <test id="waitTest">
         <browser action="navigate" value="http://stasha.info/index.php?id=132" />
         
+        
+        <keyboard css="body" action="press" value="page_down" />
+        <wait css="#sortable1" action="visible" />
+        
+        <mouse css="#ui-id-21" action="hover" />
+        
+        
+        <mouse css="#sortable-item-1-a" action="dragndrop" value="200, 0" />
+        <expected css="#sortable1 li" action="count" value="4" />
+        <expected css="#sortable2 li" action="count" value="6" />
     </test>
 </tests>
