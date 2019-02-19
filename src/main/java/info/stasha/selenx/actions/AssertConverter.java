@@ -10,7 +10,7 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
  *
  * @author stasha
  */
-public class ExpectedConverter implements Converter {
+public class AssertConverter implements Converter {
 
     @Override
     public void marshal(Object expected, HierarchicalStreamWriter writer, MarshallingContext mc) {
@@ -19,7 +19,7 @@ public class ExpectedConverter implements Converter {
 
     @Override
     public Object unmarshal(HierarchicalStreamReader reader, UnmarshallingContext uc) {
-        Expected e = new Expected();
+        Assert e = new Assert();
         e.setCss(reader.getAttribute("css"));
         e.setXp(reader.getAttribute("xp"));
         e.setEl(reader.getAttribute("el"));
@@ -43,7 +43,7 @@ public class ExpectedConverter implements Converter {
 
     @Override
     public boolean canConvert(Class type) {
-        return type.getTypeName().equals(Expected.class.getTypeName());
+        return type.getTypeName().equals(Assert.class.getTypeName());
     }
 
 }

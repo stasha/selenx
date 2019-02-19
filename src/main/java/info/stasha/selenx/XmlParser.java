@@ -4,8 +4,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import info.stasha.selenx.actions.Action;
 import info.stasha.selenx.actions.Mouse;
-import info.stasha.selenx.actions.Expected;
-import info.stasha.selenx.actions.ExpectedConverter;
+import info.stasha.selenx.actions.Assert;
+import info.stasha.selenx.actions.AssertConverter;
 import info.stasha.selenx.actions.Browser;
 import info.stasha.selenx.actions.Keyboard;
 import info.stasha.selenx.actions.Wait;
@@ -46,11 +46,13 @@ public class XmlParser {
         xstr.alias("el", Element.class);
         xstr.alias("mouse", Mouse.class);
         xstr.alias("keyboard", Keyboard.class);
-        xstr.alias("expected", Expected.class);
+        xstr.alias("assert", Assert.class);
         xstr.alias("tests", TestClass.class);
         xstr.alias("test", Test.class);
         xstr.alias("browser", Browser.class);
         xstr.alias("wait", Wait.class);
+        
+        xstr.aliasAttribute(Test.class, "ignore", "ignore");
 
         // tag attributes
         xstr.aliasAttribute(Site.class, "baseUri", "baseUri");
@@ -87,9 +89,9 @@ public class XmlParser {
         xstr.aliasAttribute(Action.class, "template", "template");
         xstr.aliasAttribute(Action.class, "returns", "return");
 
-        // expected tag attributes
-        xstr.aliasAttribute(Expected.class, "attr", "attr");
-        xstr.aliasAttribute(Expected.class, "prop", "prop");
+        // assert tag attributes
+        xstr.aliasAttribute(Assert.class, "attr", "attr");
+        xstr.aliasAttribute(Assert.class, "prop", "prop");
 
         // action specific attributes
         xstr.aliasAttribute(Test.class, "actions", "action");
@@ -105,7 +107,7 @@ public class XmlParser {
         xstr.addImplicitCollection(TestClass.class, "tests", Test.class);
         xstr.addImplicitCollection(Test.class, "actions", Action.class);
 
-        xstr.registerConverter(new ExpectedConverter());
+        xstr.registerConverter(new AssertConverter());
         xstr.registerConverter(new WaitConverter());
 
         return xstr;

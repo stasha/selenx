@@ -1,50 +1,50 @@
 <tests>
     <test id="browserTest">
         <browser action="navigate" value="http://stasha.info" />
-        <expected css="title">Projects / Experiments</expected>
+        <assert css="title">Projects / Experiments</assert>
         <browser action="newtab" value="http://stasha.info/?id=5" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="newtab" value="http://stasha.info/?id=20" />
-        <expected css="title">About</expected>
+        <assert css="title">About</assert>
         <browser action="newtab" value="http://stasha.info/?id=68" />
-        <expected css="title">Contact</expected>
+        <assert css="title">Contact</assert>
         
         <browser action="switchtotab" value="Projects / Experiments" />
-        <expected css="title">Projects / Experiments</expected>
+        <assert css="title">Projects / Experiments</assert>
         <browser action="switchtotab" value="Blog" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="switchtotab" value="About" />
-        <expected css="title">About</expected>
+        <assert css="title">About</assert>
         <browser action="switchtotab" value="Contact" />
-        <expected css="title">Contact</expected>
+        <assert css="title">Contact</assert>
         
         <browser action="switchtotab" value="0" />
-        <expected css="title">Projects / Experiments</expected>
+        <assert css="title">Projects / Experiments</assert>
         <browser action="switchtotab" value="1" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="switchtotab" value="2" />
-        <expected css="title">About</expected>
+        <assert css="title">About</assert>
         <browser action="switchtotab" value="3" />
-        <expected css="title">Contact</expected>
+        <assert css="title">Contact</assert>
         
         <browser action="closetab" value="3" />
-        <expected css="title">About</expected>
+        <assert css="title">About</assert>
         <browser action="closetab" value="2" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="closetab" value="1" />
-        <expected css="title">Projects / Experiments</expected>
+        <assert css="title">Projects / Experiments</assert>
         
         <browser action="navigate" value="http://stasha.info/?id=5" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="back" />
-        <expected css="title">Projects / Experiments</expected>
+        <assert css="title">Projects / Experiments</assert>
         <browser action="forward" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="refresh" />
-        <expected css="title">Blog</expected>
+        <assert css="title">Blog</assert>
         <browser action="maximize" />
         <wait timeout="2000" />
-        <!-- resize doesn't work as expected, 
+        <!-- resize doesn't work as assert, 
             it just resets browser window to size when test started  -->
         <browser action="resize" value="1280,200" />
         <wait timeout="2000" />

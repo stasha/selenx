@@ -71,7 +71,7 @@ Write selenium tests using XML
         <type el="login password" value="password" />
         <select el="login rememberme" value="false" />
         <mouse el="login submit" />
-        <expected type="text" css="title">Admastic - Latest ads</expected>
+        <assert type="text" css="title">Admastic - Latest ads</assert>
     </template>
 </templates>
 ```
@@ -91,7 +91,7 @@ Write selenium tests using XML
     <test id="loginTest">
         <navigate url="/" return="homePage" />
         <mouse type="click" el="header home" />
-        <expected type="text" css="title">Admastic</expected>
+        <assert type="text" css="title">Admastic</assert>
         
         <import template="loginTemplate" />
 
@@ -102,7 +102,7 @@ Write selenium tests using XML
     <test id="logoutTest">
         <navigate url="/" return="logedInHomePage" />
         <mouse el="header logout" return="homePage" />
-        <expected type="text" css="title">Admastic</expected>
+        <assert type="text" css="title">Admastic</assert>
     </test>
 </tests>
 ```

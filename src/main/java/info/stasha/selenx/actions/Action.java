@@ -13,6 +13,8 @@ import org.openqa.selenium.WebElement;
  */
 public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSelector<T> {
 
+    public static final ThreadLocal<String> CURRENT_SELECTOR = new ThreadLocal<String>();
+
     private String action;
     private String value;
     private String el;
@@ -120,8 +122,8 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
     }
 
     public WebElement getWebElement() {
-        if (this.getCss() != null) {
-            return $(getCss()).get(0);
+        if (getSelector() != null) {
+            return $(getSelector()).get(0);
         }
 
         Element e = getElement();
@@ -138,13 +140,20 @@ public abstract class Action<T> implements Executable, CSSSelector<T>, XPathSele
     }
 
     public String getSelector() {
+        String se = null;
         if (this.getCss() != null) {
-            return this.getCss();
+            se = this.getCss();
         } else if (this.getXp() != null) {
-            return this.getXp();
+            se = this.getXp();
         }
 
-        return null;
+        if (se == null) {
+            se = CURRENT_SELECTOR.get();
+        }
+
+        CURRENT_SELECTOR.set(se);
+
+        return se;
     }
 
     public String getSelector(String selector) {

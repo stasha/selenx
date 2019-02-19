@@ -40,6 +40,8 @@ public class TestExecutor {
         this.to = to;
         System.out.println("Executing test: " + test.getId());
 
+        
+
         for (Method m : to.getClass().getMethods()) {
             if (m.isAnnotationPresent(ExecuteBeforeEach.class)) {
                 befores.add(m);

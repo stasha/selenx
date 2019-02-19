@@ -4,7 +4,7 @@
         <keyboard el="login email" action="type" value="test53@stasha.info" />
         <keyboard id="test" el="login password" action="type" value="password" />
         <mouse action="click" el="login submit" />
-        <expected css="title">Admastic - Latest ads</expected>
+        <assert css="title">Admastic - Latest ads</assert>
     </template>
     
     <template id="testTemplate">

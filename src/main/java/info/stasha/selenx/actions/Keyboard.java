@@ -61,7 +61,7 @@ public class Keyboard extends Action<Keyboard> {
         }
         
         if(getSelector() == null || "body".equals(getSelector())){
-            $("body").click();
+//            $("body").click();
         }
 
         switch (getAction()) {
@@ -81,7 +81,7 @@ public class Keyboard extends Action<Keyboard> {
                 break;
 
             default:
-                throw new UnsupportedOperationException("Action: " + getAction() + " is not supported!");
+                throw new UnsupportedOperationException("Keyboard action: " + getAction() + " is not supported!");
         }
 
         action.build().perform();

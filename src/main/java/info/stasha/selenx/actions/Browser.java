@@ -119,7 +119,7 @@ public class Browser extends Action<Browser> {
                 switchToTab();
                 break;
             default:
-                throw new UnsupportedOperationException("Action: " + getAction() + " is not supported");
+                throw new UnsupportedOperationException("Browser action: " + getAction() + " is not supported");
         }
     }
 

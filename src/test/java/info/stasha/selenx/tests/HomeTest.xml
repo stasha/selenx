@@ -1,18 +1,18 @@
 <tests>
-    <test id="loginTest">
+    <test ignore="true" id="loginTest">
         <browser action="navigate" value="/" return="homePage" />
         
         <mouse id="actionId" action="click" el="header home" />
-        <expected type="text" css="title">Admastic</expected>
+        <assert type="text" css="title">Admastic</assert>
         
         <import template="loginTemplate" />
         <wait el="header home" until="isVisible" timeout="200" />
     </test>
     
     
-    <test id="logoutTest">
+    <test ignore="true" id="logoutTest">
         <browser action="navigate" value="/" return="loggedInHomePage" />
         <mouse action="click" el="header logout" return="homePage" />
-        <expected type="text" css="title">Admastic</expected>
+        <assert type="text" css="title">Admastic</assert>
     </test>
 </tests>

@@ -68,7 +68,7 @@ public class Mouse extends Action<Mouse> {
                 }
                 break;
             default:
-                throw new UnsupportedOperationException("Action: " + getAction() + " is not supported!");
+                throw new UnsupportedOperationException("Mouse action: " + getAction() + " is not supported!");
         }
     }
 

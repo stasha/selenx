@@ -1,9 +1,9 @@
 package info.stasha.selenx.junit4;
 
-import info.stasha.selenx.tags.Site;
+import static io.github.seleniumquery.SeleniumQuery.$;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunListener;
-import static io.github.seleniumquery.SeleniumQuery.$;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Junit4 Test listener.
@@ -11,10 +11,15 @@ import static io.github.seleniumquery.SeleniumQuery.$;
  * @author stasha
  */
 public class ExecutionListener extends RunListener {
+    
+    public static WebDriver driver = null;
 
     @Override
     public void testRunStarted(Description description) throws Exception {
-        $.driver().useFirefox();
+        if(driver == null){
+            $.driver().useFirefox();
+            driver = $.driver().get();
+        }
     }
 
     public ExecutionListener() {

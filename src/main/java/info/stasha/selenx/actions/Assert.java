@@ -2,12 +2,15 @@ package info.stasha.selenx.actions;
 
 import static io.github.seleniumquery.SeleniumQuery.$;
 import io.github.seleniumquery.SeleniumQueryFluentFunctionEvaluateIf;
+import java.util.List;
+import java.util.Map;
+import org.openqa.selenium.JavascriptExecutor;
 
 /**
  *
  * @author stasha
  */
-public class Expected extends Action {
+public class Assert extends Action {
 
     private String attr;
     private String prop;
@@ -123,52 +126,74 @@ public class Expected extends Action {
                     throw new AssertionError("Element is selected: " + getElementToHtml());
                 }
                 break;
-            case "STARTS_WITH":
+            case "STARTSWITH":
                 if (!getVal().startsWith(getValue())) {
                     throw new AssertionError("Expected " + getVal() + " to start with " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "!STARTS_WITH":
+            case "!STARTSWITH":
                 if (getVal().startsWith(getValue())) {
                     throw new AssertionError("Expected " + getVal() + " to start with " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "ENDS_WITH":
+            case "ENDSWITH":
                 if (!getVal().endsWith(getValue())) {
                     throw new AssertionError("Expected " + getVal() + " to end with " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "!ENDS_WITH":
+            case "!ENDSWITH":
                 if (getVal().endsWith(getValue())) {
                     throw new AssertionError("Expected " + getVal() + " to end with " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "HAS_CLASS":
+            case "HASCLASS":
                 if (!$(getWebElement()).hasClass(getValue())) {
                     throw new AssertionError("Element doesn't contain class " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "!HAS_CLASS":
+            case "!HASCLASS":
                 if ($(getWebElement()).hasClass(getValue())) {
                     throw new AssertionError("Element contains class " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "HAS_ATTR":
-                if (getWebElement().getAttribute(getVal()) == null) {
-                    throw new AssertionError("Element doesn't has attribute " + getValue() + ": " + getElementToHtml());
+            case "HASATTRIBUTE":
+                JavascriptExecutor js = (JavascriptExecutor) $.driver().get();
+                Map<String, Object> attributes = (Map<String, Object>) js.executeScript("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;", getWebElement());
+                if (!attributes.containsKey(getValue())) {
+                    throw new AssertionError("Element doesn't contain attribute " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "!HAS_ATTR":
-                if (getWebElement().getAttribute(getVal()) != null) {
-                    throw new AssertionError("Element has attribute " + getValue() + ": " + getElementToHtml());
+            case "!HASATTRIBUTE":
+                js = (JavascriptExecutor) $.driver().get();
+                attributes = (Map<String, Object>) js.executeScript("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;", getWebElement());
+                if (attributes.containsKey(getValue())) {
+                    throw new AssertionError("Element contains attribute " + getValue() + ": " + getElementToHtml());
                 }
                 break;
-            case "HAS_ELEMENT":
+            case "HASPROPERTY":
+                js = (JavascriptExecutor) $.driver().get();
+                List props = (List<String>) js.executeScript("var items = []; for (var i in arguments[0]) { items.push(i) }; return items;", getWebElement());
+
+                if (!props.contains(getValue())) {
+                    throw new AssertionError("Element does not contains property " + getValue() + ": " + getElementToHtml());
+                }
+
+                break;
+            case "!HASPROPERTY":
+                js = (JavascriptExecutor) $.driver().get();
+                props = (List<String>) js.executeScript("var items = []; for (var i in arguments[0]) { items.push(i) }; return items;", getWebElement());
+
+                if (props.contains(getValue())) {
+                    throw new AssertionError("Element contains property " + getValue() + ": " + getElementToHtml());
+                }
+
+                break;
+            case "HASELEMENT":
                 if ($(getWebElement()).filter(getValue()).size() == 0) {
                     throw new AssertionError("Element does not contain " + getValue() + " element: " + getElementToHtml());
                 }
                 break;
-            case "!HAS_ELEMENT":
+            case "!HASELEMENT":
                 if ($(getWebElement()).filter(getValue()).size() > 0) {
                     throw new AssertionError("Element contains " + getValue() + " element: " + getElementToHtml());
                 }

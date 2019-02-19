@@ -32,7 +32,13 @@ public class WaitConverter implements Converter {
         e.setUntil(reader.getAttribute("until"));
 
         // getValue must be last otherwise strange exception will be thrown
-        e.setValue(reader.getValue().trim());
+        String attrValue = reader.getAttribute("value");
+        String value = reader.getValue();
+        if (value != null) {
+            value = value.trim();
+        }
+        attrValue = attrValue == null ? value : attrValue;
+        e.setValue(attrValue);
         return e;
     }
 

@@ -70,26 +70,26 @@
         <keyboard css="#textArea" action="hold" value="shift" />
         <keyboard action="type" value="a" />
         <keyboard action="release" value="shift" />
-        <expected prop="value">A</expected>
+        <assert prop="value">A</assert>
         
+        <keyboard css="body" action="press" value="tab" />
         <keyboard action="press" value="tab" />
-        <keyboard action="press" value="tab" />
-        <keyboard action="type" value="a" />
+        <keyboard css="#autocomplete" action="type" value="a" />
         <keyboard action="press" value="escape" />
-        <expected prop="value">a</expected>
-        <keyboard action="press" value="down" />
+        <assert prop="value">a</assert>
         <keyboard action="press" value="down" />
         <keyboard action="press" value="down" />
         <keyboard action="press" value="up" />
         <keyboard action="press" value="enter" />
-        <expected prop="value">ActionScript</expected>
+        <wait timeout="1000" />
+        <assert prop="value">ActionScript</assert>
         <keyboard action="press" value="back_space" />
-        <expected prop="value">ActionScrip</expected>
+        <assert prop="value">ActionScrip</assert>
         
         <keyboard action="hold" value="control" />
         <keyboard action="type" value="a" />
         <keyboard action="release" value="control" />
         <keyboard action="press" value="back_space" />
-        <expected prop="value"></expected>
+        <assert prop="value"></assert>
     </test>
 </tests>

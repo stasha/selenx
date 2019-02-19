@@ -70,6 +70,9 @@
                 font-size: 1.2em;
                 width: 120px;
             }
+            .hidden {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -245,6 +248,13 @@
         <a id="doubleclick" href="#">double click</a> <br />
         <a id="contextclick" href="#">context click</a>
 
+        <ul id="show-hide-container">
+            <li id="show-hide-1">show-hide-1</li>
+            <li id="show-hide-2">show-hide-2</li>
+            <li id="show-hide-3">show-hide-3</li>
+            <li id="show-hide-4"></li>
+        </ul>
+
 
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -415,6 +425,25 @@
                 }
                 return true;
             });
+
+            var count = 0;
+            setInterval(function () {
+                count++;
+                $("#show-hide-1").toggleClass("hidden");
+                if (count % 2 === 0) {
+                    $("#show-hide-2").prop("hidden2", "true");
+                } else {
+                    delete $("#show-hide-2").get(0).hidden2;
+                }
+                $("#show-hide-3").attr("hidden3", count % 2 === 0 ? "true" : null);
+
+                if ($("#show-hide-4").is(":empty")) {
+                    $("#show-hide-4").html("<div>not empty</div>")
+                } else {
+                    $("#show-hide-4").empty();
+                }
+            }, 2000);
+
         </script>
     </body>
 </html>

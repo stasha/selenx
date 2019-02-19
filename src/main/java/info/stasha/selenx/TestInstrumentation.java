@@ -19,7 +19,7 @@ public class TestInstrumentation {
 
     private TestInstrumentation() {
     }
-    
+
     private static final Map<Class<?>, Class<?>> CLASSES = new HashMap<>();
 
     /**
@@ -47,6 +47,10 @@ public class TestInstrumentation {
                     .name(clazz.getName() + "_");
 
             for (Test test : tests.getTests()) {
+                if (test.getIgnore() != null && !test.getIgnore().isEmpty()) {
+                    System.out.println("Ignoring test: " + test.getId() + " : " + test.getIgnore());
+                    continue;
+                }
                 TestExecutor te = new TestExecutor(test);
                 b = b.defineMethod(test.getId(), void.class, Visibility.PUBLIC)
                         .intercept(MethodDelegation.to(te)

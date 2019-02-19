@@ -12,6 +12,7 @@ import info.stasha.selenx.ExecutingTest;
 public class Test extends Id implements ExecutingTest {
 
     private LinkedHashSet<Action> actions = new LinkedHashSet<>();
+    private String ignore;
 
     public Set<Action> getActions() {
         return actions;
@@ -20,5 +21,15 @@ public class Test extends Id implements ExecutingTest {
     public void setActions(LinkedHashSet<Action> actions) {
         this.actions = actions;
     }
+
+    public String getIgnore() {
+        return ignore;
+    }
+
+    public void setIgnore(String ignore) {
+        this.ignore = ignore;
+    }
+    
+    
 
 }
