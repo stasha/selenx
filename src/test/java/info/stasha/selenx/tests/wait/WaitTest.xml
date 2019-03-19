@@ -7,6 +7,7 @@
         <wait action="visible" css="#show-hide-1" />
         <assert action="!hasclass" value="hidden" />
         <mouse action="click" />
+        
         <wait action="hasclass" value="hidden" />
         <assert action="hasclass" value="hidden" />
         <wait action="!hasclass" value="hidden" />
@@ -24,5 +25,10 @@
         <assert action="equals" attr="hidden3" value="true" />
         <wait action="!hasattribute" value="hidden3" />
         <assert action="!hasattribute" value="hidden3" />
+        
+        <wait action="empty" css="#show-hide-4" />
+        <assert action="empty" />
+        <wait action="!empty" css="#show-hide-4" />
+        <assert action="!empty" />
     </test>
 </tests>

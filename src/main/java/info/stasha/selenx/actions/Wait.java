@@ -18,6 +18,8 @@ public class Wait extends Action<Wait> {
     String attr;
     String value;
 
+    private long elapsed = 0;
+
     public String getTimeout() {
         return timeout;
     }
@@ -63,10 +65,29 @@ public class Wait extends Action<Wait> {
                 func.isNotVisible();
                 break;
             case "EMPTY":
-                func.isEmpty();
+                while (true) {
+                    System.out.println(getWebElement().getAttribute("outerHTML"));
+                    if ($(getSelector()).children().size() == 0) {
+                        break;
+                    }
+                    Thread.sleep(100);
+                    elapsed += 100;
+                    if (elapsed > to) {
+                        throw new TimeoutException("Timeout while waiting for " + CURRENT_SELECTOR.get() + " to be empty.");
+                    }
+                }
                 break;
             case "!EMPTY":
-                func.isNotEmpty();
+                while (true) {
+                    if ($(getSelector()).children().size() > 0) {
+                        break;
+                    }
+                    Thread.sleep(100);
+                    elapsed += 100;
+                    if (elapsed > to) {
+                        throw new TimeoutException("Timeout while waiting for " + CURRENT_SELECTOR.get() + " not to be empty.");
+                    }
+                }
                 break;
             case "EQUALS":
                 func.html().isEqualTo(getValue());
@@ -81,7 +102,6 @@ public class Wait extends Action<Wait> {
                 func.attr("class").not().contains(getValue());
                 break;
             case "HASATTRIBUTE":
-                long elapsed = 0;
                 while (true) {
                     JavascriptExecutor js = (JavascriptExecutor) $.driver().get();
                     Map<String, Object> attributes = (Map<String, Object>) js.executeScript("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;", getWebElement());
@@ -97,7 +117,6 @@ public class Wait extends Action<Wait> {
                 }
                 break;
             case "!HASATTRIBUTE":
-                elapsed = 0;
                 while (true) {
                     JavascriptExecutor js = (JavascriptExecutor) $.driver().get();
                     Map<String, Object> attributes = (Map<String, Object>) js.executeScript("var items = {}; for (index = 0; index < arguments[0].attributes.length; ++index) { items[arguments[0].attributes[index].name] = arguments[0].attributes[index].value }; return items;", getWebElement());
@@ -113,7 +132,6 @@ public class Wait extends Action<Wait> {
                 }
                 break;
             case "HASPROPERTY":
-                elapsed = 0;
                 while (true) {
                     JavascriptExecutor js = (JavascriptExecutor) $.driver().get();
                     List attributes = (List<String>) js.executeScript("var items = []; for (var i in arguments[0]) { items.push(i) }; return items;", getWebElement());
@@ -129,7 +147,6 @@ public class Wait extends Action<Wait> {
                 }
                 break;
             case "!HASPROPERTY":
-                elapsed = 0;
                 while (true) {
                     JavascriptExecutor js = (JavascriptExecutor) $.driver().get();
                     List attributes = (List<String>) js.executeScript("var items = []; for (var i in arguments[0]) { items.push(i) }; return items;", getWebElement());

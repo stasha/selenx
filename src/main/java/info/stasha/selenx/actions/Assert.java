@@ -97,14 +97,15 @@ public class Assert extends Action {
             case "!VISIBLE":
                 $(getWebElement()).assertThat().isNotVisible();
                 break;
-            case "HIDDEN":
-                $(getWebElement()).assertThat().isHidden();
-                break;
             case "EMPTY":
-                $(getWebElement()).assertThat().isEmpty();
+                if ($(getSelector()).children().size() > 0) {
+                    throw new AssertionError("Element is not empty" + ": " + getElementToHtml());
+                }
                 break;
             case "!EMPTY":
-                $(getWebElement()).assertThat().isNotEmpty();
+                if ($(getSelector()).children().size() == 0) {
+                    throw new AssertionError("Element is empty" + ": " + getElementToHtml());
+                }
                 break;
             case "ENABLED":
                 if (!getWebElement().isEnabled()) {
